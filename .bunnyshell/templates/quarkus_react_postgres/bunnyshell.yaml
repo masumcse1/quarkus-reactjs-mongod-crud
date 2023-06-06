@@ -19,9 +19,9 @@ components:
       deploy:
           resources:
               limits:
-                  memory: 512Mi
+                  memory: 512MiB
               reservations:
-                  memory: 128Mi
+                  memory: 128MiB
       environment:
           API_URL: 'https://{{ components.quarkus-applicaton.ingress.hosts[0] }}/api/users'
       ports:
@@ -45,9 +45,9 @@ components:
       deploy:
           resources:
               limits:
-                  memory: 512Mi
+                  memory: 512MiB
               reservations:
-                  memory: 128Mi
+                  memory: 128MiB
       environment:
         CONNECTION_STRING: 'jdbc:postgresql://postgres-db:5432/users'
         POSTGRES_PASSOWRD: '{{ env.vars.POSTGRES_PASSWORD }}'
