@@ -22,7 +22,7 @@ components:
         - '8080:8080'
     hosts:
       -
-        hostname: 'user-applicaton-{{ env.base_domain }}'
+        hostname: 'user-application-{{ env.base_domain }}'
         path: /
         servicePort: 8080
   -
