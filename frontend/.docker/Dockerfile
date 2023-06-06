@@ -16,7 +16,7 @@ RUN npm install
 
 EXPOSE 8080
 
-CMD ["npm", "start"]
+CMD ["NODE_OPTIONS='--openssl-legacy-provider'", "npm", "start"]
 
 # production stage
 FROM node:18-alpine3.17 as prod
