@@ -3,6 +3,9 @@ FROM node:18-alpine3.17 as dev
 
 ENV NODE_ENV=development
 
+ARG API_URL
+ENV API_URL $API_URL
+
 # setup workdir (next commands will run under this context, but also the running container will inherit this - if not overriden at runtime)
 WORKDIR /usr/src/app/
 
