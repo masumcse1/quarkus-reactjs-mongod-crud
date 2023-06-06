@@ -1,0 +1,22 @@
+kind: Environment
+name: Quarkus Application
+type: primary
+components:
+  -
+    kind: Application
+    name: quarkus-applicaton
+    gitRepo: 'https://github.com/himanshumps/quarkus-reactjs-mongod-crud.git'
+    gitBranch: main
+    gitApplicationPath: backend/quarkus-mongo-panache-crud
+    dockerCompose:
+      build:
+        context: ./backend/quarkus-mongo-panache-crud
+        dockerfile: docker/Dockerfile.jvm
+        target: dev
+      ports:
+        - '8080:8080'
+    hosts:
+      -
+        hostname: 'quarkus-applicaton-{{ env.base_domain }}'
+        path: /
+        servicePort: 8080

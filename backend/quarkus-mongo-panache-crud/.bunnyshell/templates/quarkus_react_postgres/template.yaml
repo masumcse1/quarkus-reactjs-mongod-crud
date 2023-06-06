@@ -1,0 +1,12 @@
+name: Quarkus Application
+description: Quarkus Application
+tags:
+  - Java 8
+  - openjdk
+  - fatjar
+icons: [ 'java']
+stack:
+  packages:
+    - name: Openjdk
+      version: '8'
+discoverable: true
