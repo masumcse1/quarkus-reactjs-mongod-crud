@@ -19,12 +19,12 @@ components:
       environment:
           API_URL: 'https://{{ components.quarkus-applicaton.ingress.hosts[0] }}/api/users'
       ports:
-        - '3000:3000'
+        - '8080:8080'
     hosts:
       -
         hostname: 'user-applicaton-{{ env.base_domain }}'
         path: /
-        servicePort: 3000
+        servicePort: 8080
   -
     kind: Application
     name: quarkus-applicaton
