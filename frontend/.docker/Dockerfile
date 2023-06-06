@@ -2,6 +2,7 @@
 FROM node:18.12-alpine3.17 as dev
 
 ENV NODE_ENV=development
+ENV NODE_OPTIONS="--openssl-legacy-provider"
 
 ENV PORT 8080
 
