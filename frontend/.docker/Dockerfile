@@ -3,8 +3,6 @@ FROM node:18.12-alpine3.17 as dev
 
 ENV NODE_ENV=development
 
-ENV API_URL="http://localhost:8081/api/users"
-
 ENV PORT 8080
 
 # setup workdir (next commands will run under this context, but also the running container will inherit this - if not overriden at runtime)
