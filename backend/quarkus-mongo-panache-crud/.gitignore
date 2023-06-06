@@ -1,8 +1,7 @@
 /target/
 /logs/
-!.mvn/wrapper/maven-wrapper.jar
 dependency-reduced-pom.xml
-.mvn/
+settings.xml
 
 ### STS ###
 .apt_generated

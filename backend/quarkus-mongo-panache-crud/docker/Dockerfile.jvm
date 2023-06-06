@@ -81,8 +81,12 @@ FROM registry.access.redhat.com/ubi9/openjdk-17:1.14-2.1681917140 as dev
 
 ENV LANGUAGE='en_US:en'
 
+COPY --chown=185 settings.xml settings.xml
 COPY --chown=185 pom.xml pom.xml
-RUN mvn dependency:resolve
+COPY --chown=185 mvnw mvnw
+COPY --chown=185 mvnw.cmd mvnw.cmd
+COPY --chown=185 .mvn .mvn
+RUN ./mvnw dependency:resolve
 COPY --chown=185 src src
 
 # We make four distinct layers so if there are application changes the library layers can be re-used
@@ -96,4 +100,4 @@ USER 185
 #ENV AB_JOLOKIA_OFF=""
 #ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
 #ENV JAVA_APP_JAR="${pwd}/target/quarks-app/quarkus-run.jar"
-CMD ["mvn", "quarkus:dev"]
+CMD ["./mvnw", "quarkus:dev"]
