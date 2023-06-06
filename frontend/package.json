@@ -14,8 +14,8 @@
     "react-scripts": "3.4.0"
   },
   "scripts": {
-    "start": "HOST=0.0.0.0 PORT=8080 react-scripts start",
-    "build": "react-scripts build",
+    "start": "HOST=localhost PORT=8080 react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
