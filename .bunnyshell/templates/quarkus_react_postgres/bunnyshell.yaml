@@ -46,5 +46,5 @@ components:
 volumes:
     -
         name: postgres-volume
-        size: 128Mb
+        size: 128Mi
         type: disk
