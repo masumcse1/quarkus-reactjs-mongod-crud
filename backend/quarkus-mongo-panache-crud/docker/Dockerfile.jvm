@@ -81,7 +81,6 @@ FROM registry.access.redhat.com/ubi9/openjdk-17:1.14-2.1681917140 as dev
 
 ENV LANGUAGE='en_US:en'
 
-COPY --chown=185 settings.xml settings.xml
 COPY --chown=185 pom.xml pom.xml
 COPY --chown=185 mvnw mvnw
 COPY --chown=185 mvnw.cmd mvnw.cmd
