@@ -16,12 +16,6 @@ components:
           context: ./frontend
           dockerfile: .docker/Dockerfile
           target: dev
-      deploy:
-          resources:
-              limits:
-                  memory: 512MiB
-              reservations:
-                  memory: 128MiB
       environment:
           API_URL: 'https://{{ components.quarkus-applicaton.ingress.hosts[0] }}/api/users'
       ports:
@@ -42,12 +36,6 @@ components:
         context: ./backend/quarkus-mongo-panache-crud
         dockerfile: docker/Dockerfile.jvm
         target: dev
-      deploy:
-          resources:
-              limits:
-                  memory: 512MiB
-              reservations:
-                  memory: 128MiB
       environment:
         CONNECTION_STRING: 'jdbc:postgresql://postgres-db:5432/users'
         POSTGRES_PASSOWRD: '{{ env.vars.POSTGRES_PASSWORD }}'
