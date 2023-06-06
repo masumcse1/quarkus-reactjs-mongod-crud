@@ -36,8 +36,8 @@ components:
         POSTGRES_PASSWORD: {{ env.vars.POSTGRES_PASSWORD }}
         POSTGRES_USER: {{ env.vars.POSTGRES_USERNAME }}
       image: postgres:15.3-alpine3.18
-        ports:
-          - '5432:5432'
+      ports:
+        - '5432:5432'
     volumes:
       -
         name: postgres-volume
