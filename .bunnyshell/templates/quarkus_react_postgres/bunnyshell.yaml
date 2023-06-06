@@ -5,6 +5,25 @@ environmentVariables:
   POSTGRES_PASSWORD: bns_secret(qHogxn5e)
   POSTGRES_USERNAME: bns_secret(postgres)
 components:
+    -
+    kind: Application
+    name: react-app
+    gitRepo: ''https://github.com/himanshumps/quarkus-reactjs-mongod-crud.git'
+    gitBranch: main
+    gitApplicationPath: frontend
+    dockerCompose:
+      build:
+          context: ./frontend
+          dockerfile: .docker/Dockerfile
+          target: dev
+      deploy:
+          resources:
+              limits:
+                  memory: 512Mi
+              reservations:
+                  memory: 128Mi
+      environment:
+          API_URL: 'https://{{ components.quarkus-applicaton.ingress.hosts[0] }}/api/users'
   -
     kind: Application
     name: quarkus-applicaton
@@ -16,10 +35,17 @@ components:
         context: ./backend/quarkus-mongo-panache-crud
         dockerfile: docker/Dockerfile.jvm
         target: dev
+      deploy:
+          resources:
+              limits:
+                  memory: 512Mi
+              reservations:
+                  memory: 128Mi
       environment:
         CONNECTION_STRING: 'jdbc:postgresql://postgres-db:5432/users'
         POSTGRES_PASSOWRD: '{{ env.vars.POSTGRES_PASSWORD }}'
         POSTGRES_USERNAME: '{{ env.vars.POSTGRES_USERNAME }}'
+        ORIGIN_URL: 'https://{{ components.react-app.ingress.hosts[0] }}''
       ports:
         - '8080:8080'
     hosts:
