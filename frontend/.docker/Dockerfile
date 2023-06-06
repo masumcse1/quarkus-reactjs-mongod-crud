@@ -1,13 +1,12 @@
 # dev stage
-FROM node:18-alpine3.17 as dev
+FROM node:19.9.0-alpine3.18 as dev
 
-ENV NODE_ENV=development
-
+ENV NODE_ENV=production
 
 ENV PORT 8080
 
 # setup workdir (next commands will run under this context, but also the running container will inherit this - if not overriden at runtime)
-WORKDIR /usr/src/app/
+WORKDIR /usr/src/app/frontend
 
 # - copy the rest of the code (except the ones in .dockerignore) (optimise image build - we expect these to change everytime, so keep this as late as possible)
 COPY . .
@@ -19,7 +18,7 @@ EXPOSE 8080
 CMD ["npm", "start"]
 
 # production stage
-FROM node:18-alpine3.17 as prod
+FROM node:19.9.0-alpine3.18 as prod
 
 ENV NODE_ENV=production
 ENV PORT 8080
