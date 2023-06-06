@@ -17,7 +17,7 @@ components:
           dockerfile: .docker/Dockerfile
           target: dev
       environment:
-          API_URL: 'https://{{ components.quarkus-applicaton.ingress.hosts[0] }}/api/users'
+          REACT_APP_API_URL: 'https://{{ components.quarkus-applicaton.ingress.hosts[0] }}/api/users'
       ports:
         - '8080:8080'
     hosts:
