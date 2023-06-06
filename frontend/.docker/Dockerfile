@@ -1,7 +1,9 @@
 # dev stage
-FROM node:19.9.0-alpine3.18 as dev
+FROM node:18.12-alpine3.17 as dev
 
-ENV NODE_ENV=production
+ENV NODE_ENV=development
+
+ENV API_URL="http://localhost:8081/api/users"
 
 ENV PORT 8080
 
@@ -17,21 +19,3 @@ EXPOSE 8080
 
 CMD ["npm", "start"]
 
-# production stage
-FROM node:19.9.0-alpine3.18 as prod
-
-ENV NODE_ENV=production
-ENV PORT 8080
-
-WORKDIR /usr/src/app/backend
-
-# in production we dont need dev dependencies, running `npm ci` with `NODE_ENV=production` will install only the main dependencies
-COPY package*.json .
-RUN npm install
-
-# we don't have a build stage, so just copy the files from docker context again
-COPY . .
-
-EXPOSE 8080
-
-CMD ["npm", "start"]
