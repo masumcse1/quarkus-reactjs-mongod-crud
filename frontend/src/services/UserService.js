@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-axios.defaults.headers.common['Access-Control-Allow-Origin'] = process.env.REACT_APP_API_URL;
+axios.defaults.baseURL = "https://" + process.env.REACT_APP_API_VAR;
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = "https://" + process.env.REACT_APP_API_VAR;
 axios.defaults.headers.common['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 const USER_API_BASE_URL = "/api/users";
