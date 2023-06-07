@@ -1,5 +1,5 @@
-name: Quarkus Application
-description: Quarkus Application
+name: Quarkus Application (development profile)
+description: Quarkus Application (development profile)
 tags:
   - Java 8
   - openjdk
