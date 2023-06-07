@@ -23,7 +23,6 @@ components:
     hosts:
       -
         hostname: 'user-application-{{ env.base_domain }}'
-        path: /
         servicePort: 8080
   -
     kind: Application
@@ -46,7 +45,6 @@ components:
     hosts:
       -
         hostname: 'quarkus-applicaton-{{ env.base_domain }}'
-        path: /
         servicePort: 8080
   -
     kind: Database
