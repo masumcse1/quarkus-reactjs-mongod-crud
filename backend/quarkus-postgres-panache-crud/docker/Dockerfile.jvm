@@ -69,9 +69,10 @@ RUN ./mvnw clean package
 
 EXPOSE 8080
 USER 185
+# The following command enables the hot deploy of the application
 CMD ["./mvnw", "-Dquarkus.http.host=0.0.0.0", "-Djava.util.logging.manager=org.jboss.logmanager.LogManager", "quarkus:dev"]
 # Uncomment the next two lines if you want to use run-java.sh file
-ENV JAVA_APP_JAR="target/quarkus-app/quarkus-run.jar"
+ENV JAVA_APP_JAR="/home/default/target/quarkus-app/quarkus-run.jar"
 CMD ["/usr/local/s2i/run"]
 
 # Prod stage
