@@ -1,4 +1,4 @@
-package com.knf.dev.model;
+package com.bunnyshell.hackathon.model;
 
 
 import io.quarkus.runtime.annotations.RegisterForReflection;

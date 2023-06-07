@@ -5,8 +5,8 @@
 	http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.knf.dev</groupId>
-    <artifactId>quarkus-mongo-panache-crud</artifactId>
+    <groupId>com.bunnyshell.hackathon</groupId>
+    <artifactId>quarkus-postgres-panache-crud</artifactId>
     <version>1.0</version>
 
 

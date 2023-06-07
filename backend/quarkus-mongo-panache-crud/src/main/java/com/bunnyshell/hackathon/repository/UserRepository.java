@@ -1,6 +1,6 @@
-package com.knf.dev.repository;
+package com.bunnyshell.hackathon.repository;
 
-import com.knf.dev.model.User;
+import com.bunnyshell.hackathon.model.User;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;

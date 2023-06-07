@@ -1,10 +1,10 @@
-package com.knf.dev.controller;
+package com.bunnyshell.hackathon.controller;
 
 
 import java.util.List;
 
-import com.knf.dev.model.User;
-import com.knf.dev.repository.UserRepository;
+import com.bunnyshell.hackathon.model.User;
+import com.bunnyshell.hackathon.repository.UserRepository;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
