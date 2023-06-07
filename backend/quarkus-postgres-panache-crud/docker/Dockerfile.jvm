@@ -87,16 +87,30 @@ COPY --chown=185 mvnw.cmd mvnw.cmd
 COPY --chown=185 .mvn .mvn
 RUN ./mvnw dependency:resolve
 COPY --chown=185 src src
+RUN ./mvnw clean package
 
-# We make four distinct layers so if there are application changes the library layers can be re-used
-#COPY --chown=185 target/quarkus-app/lib/ /deployments/lib/
-#COPY --chown=185 target/quarkus-app/*.jar /deployments/
-#COPY --chown=185 target/quarkus-app/app/ /deployments/app/
-#COPY --chown=185 target/quarkus-app/quarkus/ /deployments/quarkus/
 
 EXPOSE 8080
 USER 185
-#ENV AB_JOLOKIA_OFF=""
-#ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
-#ENV JAVA_APP_JAR="${pwd}/target/quarks-app/quarkus-run.jar"
 CMD ["./mvnw", "-Dquarkus.http.host=0.0.0.0", "-Djava.util.logging.manager=org.jboss.logmanager.LogManager", "quarkus:dev"]
+
+# Build stage
+FROM dev AS builder
+# build the fast jar file
+RUN ./mvnw clean package -Dmaven.test.skip
+
+# Prod stage
+FROM registry.access.redhat.com/ubi9/openjdk-17:1.14-2.1681917140 AS prod
+
+ENV LANGUAGE='en_US:en'
+
+COPY --from=builder --chown=185 /home/default/target/quarkus-app/lib/ /deployments/lib/
+COPY --from=builder --chown=185 /home/default/target/quarkus-app/*.jar /deployments/
+COPY --from=builder --chown=185 /home/default/target/quarkus-app/app/ /deployments/app/
+COPY --from=builder --chown=185 /home/default/target/quarkus-app/quarkus/ /deployments/quarkus/
+
+EXPOSE 8080
+USER 185
+ENV AB_JOLOKIA_OFF=""
+ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
