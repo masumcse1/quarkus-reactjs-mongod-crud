@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-const USER_API_BASE_URL = process.env.REACT_APP_API_URL + "api/users";
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = process.env.REACT_APP_API_URL;
+axios.defaults.headers.common['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE';
+axios.defaults.headers.common['Content-Type'] = 'application/json';
+const USER_API_BASE_URL = "/api/users";
+
 
 class UserService {
 
