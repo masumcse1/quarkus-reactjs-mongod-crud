@@ -17,13 +17,13 @@ components:
           dockerfile: .docker/Dockerfile
           target: dev
       environment:
-          REACT_APP_API_VAR: '{{ components.quarkus-applicaton.ingress.hosts[0].hostname }}'
+          REACT_APP_API_VAR: 'quarkus-applicaton-{{ env.base_domain }}'
       ports:
         - '8080:8080'
     hosts:
       -
         hostname: 'user-application-{{ env.base_domain }}'
-        path: ''
+        path: /
         servicePort: 8080
   -
     kind: Application
@@ -40,13 +40,13 @@ components:
         CONNECTION_STRING: 'jdbc:postgresql://postgres-db:5432/users'
         POSTGRES_PASSOWRD: '{{ env.vars.POSTGRES_PASSWORD }}'
         POSTGRES_USERNAME: '{{ env.vars.POSTGRES_USERNAME }}'
-        ORIGIN_VAR: '{{ components.react-app.ingress.hosts[0].hostname }}'
+        ORIGIN_VAR: 'user-application-{{ env.base_domain }}'
       ports:
         - '8080:8080'
     hosts:
       -
         hostname: 'quarkus-applicaton-{{ env.base_domain }}'
-        path: ''
+        path: /
         servicePort: 8080
   -
     kind: Database
