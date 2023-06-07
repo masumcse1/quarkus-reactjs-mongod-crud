@@ -30,10 +30,10 @@ components:
     name: quarkus-applicaton
     gitRepo: 'https://github.com/himanshumps/quarkus-reactjs-mongod-crud.git'
     gitBranch: main
-    gitApplicationPath: backend/quarkus-mongo-panache-crud
+    gitApplicationPath: backend/quarkus-postgres-panache-crud
     dockerCompose:
       build:
-        context: ./backend/quarkus-mongo-panache-crud
+        context: ./backend/quarkus-postgres-panache-crud
         dockerfile: docker/Dockerfile.jvm
         target: dev
       environment:
