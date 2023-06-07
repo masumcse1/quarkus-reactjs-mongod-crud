@@ -70,21 +70,19 @@ RUN ./mvnw clean package
 EXPOSE 8080
 USER 185
 CMD ["./mvnw", "-Dquarkus.http.host=0.0.0.0", "-Djava.util.logging.manager=org.jboss.logmanager.LogManager", "quarkus:dev"]
-
-# Build stage
-FROM dev AS builder
-# build the fast jar file
-RUN ./mvnw clean package -Dmaven.test.skip
+# Uncomment the next two lines if you want to use run-java.sh file
+ENV JAVA_APP_JAR="target/quarkus-app/quarkus-run.jar"
+CMD ["/usr/local/s2i/run"]
 
 # Prod stage
 FROM registry.access.redhat.com/ubi9/openjdk-17:1.14-2.1681917140 AS prod
 
 ENV LANGUAGE='en_US:en'
 
-COPY --from=builder  /home/default/target/quarkus-app/lib/ /deployments/lib/
-COPY --from=builder  /home/default/target/quarkus-app/*.jar /deployments/
-COPY --from=builder  /home/default/target/quarkus-app/app/ /deployments/app/
-COPY --from=builder  /home/default/target/quarkus-app/quarkus/ /deployments/quarkus/
+COPY --from=dev  /home/default/target/quarkus-app/lib/ /deployments/lib/
+COPY --from=dev  /home/default/target/quarkus-app/*.jar /deployments/
+COPY --from=dev  /home/default/target/quarkus-app/app/ /deployments/app/
+COPY --from=dev  /home/default/target/quarkus-app/quarkus/ /deployments/quarkus/
 
 EXPOSE 8080
 USER 185
