@@ -41,6 +41,7 @@ components:
         POSTGRES_PASSOWRD: '{{ env.vars.POSTGRES_PASSWORD }}'
         POSTGRES_USERNAME: '{{ env.vars.POSTGRES_USERNAME }}'
         ORIGIN_VAR: 'user-application-{{ env.base_domain }}'
+        QUARKUS_PROFILE: dev
       ports:
         - '8080:8080'
     hosts:
