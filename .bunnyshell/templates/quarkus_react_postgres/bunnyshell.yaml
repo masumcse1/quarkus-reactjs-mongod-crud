@@ -40,7 +40,7 @@ components:
         CONNECTION_STRING: 'jdbc:postgresql://postgres-db:5432/users'
         POSTGRES_PASSOWRD: '{{ env.vars.POSTGRES_PASSWORD }}'
         POSTGRES_USERNAME: '{{ env.vars.POSTGRES_USERNAME }}'
-        ORIGIN_VAR: {{ components.react-app.ingress.hosts[0] }}'
+        ORIGIN_VAR: '{{ components.react-app.ingress.hosts[0] }}'
       ports:
         - '8080:8080'
     hosts:
