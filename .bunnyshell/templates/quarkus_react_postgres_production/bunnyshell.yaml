@@ -1,0 +1,72 @@
+kind: Environment
+name: Quarkus, React and Postgres Application (Production)
+type: primary
+environmentVariables:
+  POSTGRES_PASSWORD: bns_secret(qHogxn5e)
+  POSTGRES_USERNAME: bns_secret(postgres)
+components:
+  -
+    kind: Application
+    name: react-app
+    gitRepo: 'https://github.com/himanshumps/quarkus-reactjs-mongod-crud.git'
+    gitBranch: main
+    gitApplicationPath: frontend
+    dockerCompose:
+      build:
+          context: ./frontend
+          dockerfile: .docker/Dockerfile
+          target: dev
+      environment:
+          REACT_APP_API_VAR: 'quarkus-applicaton-{{ env.base_domain }}'
+      ports:
+        - '8080:8080'
+    hosts:
+      -
+        hostname: 'user-application-{{ env.base_domain }}'
+        path: /
+        servicePort: 8080
+  -
+    kind: Application
+    name: quarkus-applicaton
+    gitRepo: 'https://github.com/himanshumps/quarkus-reactjs-mongod-crud.git'
+    gitBranch: main
+    gitApplicationPath: backend/quarkus-postgres-panache-crud
+    dockerCompose:
+      build:
+        context: ./backend/quarkus-postgres-panache-crud
+        dockerfile: docker/Dockerfile.jvm
+        target: prod
+      environment:
+        CONNECTION_STRING: 'jdbc:postgresql://postgres-db:5432/users'
+        POSTGRES_PASSOWRD: '{{ env.vars.POSTGRES_PASSWORD }}'
+        POSTGRES_USERNAME: '{{ env.vars.POSTGRES_USERNAME }}'
+        ORIGIN_VAR: 'user-application-{{ env.base_domain }}'
+        QUARKUS_PROFILE: dev
+      ports:
+        - '8080:8080'
+    hosts:
+      -
+        hostname: 'quarkus-applicaton-{{ env.base_domain }}'
+        path: /
+        servicePort: 8080
+  -
+    kind: Database
+    name: postgres-db
+    dockerCompose:
+      environment:
+        POSTGRES_DB: users
+        POSTGRES_PASSWORD: '{{ env.vars.POSTGRES_PASSWORD }}'
+        POSTGRES_USER: '{{ env.vars.POSTGRES_USERNAME }}'
+      image: postgres:15.3-alpine3.18
+      ports:
+        - '5432:5432'
+    volumes:
+      -
+        name: postgres-volume
+        mount: /var/lib/postgresql/data
+        subPath: ''
+volumes:
+    -
+        name: postgres-volume
+        size: 128Mi
+        type: disk
